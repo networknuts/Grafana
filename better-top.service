@@ -1,0 +1,11 @@
+Unit]
+Description=Better Top
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/better-top
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

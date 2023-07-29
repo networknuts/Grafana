@@ -1,0 +1,11 @@
+[Unit]
+Description=Pushgateway
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/pushgateway
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

@@ -11,3 +11,6 @@ sudo cp blackbox.service /etc/systemd/system/blackbox.service
 sudo systemctl daemon-reload
 sudo systemctl start blackbox
 sudo systemctl enable blackbox
+echo "Success!"
+echo "Blacbkox uses port 9115/TCP"
+echo "Refer to prometheus.blackbox.yml for reference."

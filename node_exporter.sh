@@ -8,3 +8,5 @@ sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 sudo cp node_exporter.service /etc/systemd/system/node_exporter.service
 sudo systemctl daemon-reload
 sudo systemctl start node_exporter
+echo "Success!"
+echo "Node Exporter uses Port 9100/TCP"

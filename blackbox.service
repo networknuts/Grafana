@@ -7,7 +7,7 @@ After=network-online.target
 Type=simple
 User=blackbox
 Group=blackbox
-ExecStart=/usr/bin/blackbox_exporter --config.file==/usr/bin/blackbox.yml
+ExecStart=/usr/bin/blackbox_exporter --config.file=/usr/bin/blackbox.yml
 
 [Install]
 WantedBy=multi-user.target

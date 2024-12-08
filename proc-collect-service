@@ -1,0 +1,28 @@
+[Unit]
+Description=Prometheus Process Metrics Collector
+Documentation=https://github.com/your-org/process-metrics-collector
+After=network.target
+
+[Service]
+Type=simple
+User=prometheus
+Group=prometheus
+WorkingDirectory=/opt/process-metrics-collector
+ExecStart=/usr/bin/python3 /opt/process-metrics-collector/process_metrics.py
+Restart=on-failure
+RestartSec=5
+
+# Security Hardening
+ProtectSystem=full
+ProtectHome=true
+PrivateDevices=true
+PrivateTmp=true
+NoNewPrivileges=true
+
+# Resource Limits (optional, adjust as needed)
+LimitNOFILE=65535
+CPUQuota=50%
+MemoryLimit=500M
+
+[Install]
+WantedBy=multi-user.target

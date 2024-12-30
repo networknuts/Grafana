@@ -10,7 +10,7 @@ fi
 # Configuration
 INSTALL_DIR="/opt/process-metrics-collector"
 PYTHON_SCRIPT="proc-collect.py"
-SERVICE_FILE="proc-collect-service"
+SERVICE_FILE="proc-collect.service"
 PROMETHEUS_USER="prometheus"
 
 # Create prometheus user if not exists

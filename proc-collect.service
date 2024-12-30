@@ -8,7 +8,7 @@ Type=simple
 User=prometheus
 Group=prometheus
 WorkingDirectory=/opt/process-metrics-collector
-ExecStart=/usr/bin/python3 /opt/process-metrics-collector/process_metrics.py
+ExecStart=/usr/bin/python3 /opt/process-metrics-collector/proc-collect.py
 Restart=on-failure
 RestartSec=5
 

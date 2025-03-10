@@ -27,3 +27,4 @@ sudo cp prometheus.service /etc/systemd/system/prometheus.service
 sudo systemctl daemon-reload
 sudo systemctl start prometheus.service
 sudo systemctl enable prometheus.service
+echo "prometheus uses port 9090"

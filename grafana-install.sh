@@ -7,7 +7,7 @@ echo "deb [signed-by=/usr/share/keyrings/grafana.key] \
               https://packages.grafana.com/enterprise/deb stable main" | sudo \
               tee -a /etc/apt/sources.list.d/grafana.list
 apt-get update
-apt-get install grafana-enterprise
+apt-get install grafana-enterprise -y
 systemctl daemon-reload
 systemctl start grafana-server
 systemctl enable grafana-server

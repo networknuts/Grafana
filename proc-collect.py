@@ -29,33 +29,48 @@ PROCESS_THREADS = Gauge(
 
 def collect_process_metrics():
     """
-    Collect metrics for all running processes
+    Collect metrics for all running processes with proper CPU calculation
     """
+    # Get initial CPU measurements for all processes
+    process_dict = {}
     for proc in psutil.process_iter(['pid', 'name']):
         try:
+            # Store the process object
+            process_dict[proc.pid] = proc
+            # Initialize CPU measurement
+            proc.cpu_percent(interval=None)
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+    
+    # Wait for a short interval to get meaningful CPU measurements
+    time.sleep(1)
+    
+    # Now collect the actual metrics
+    for pid, proc in process_dict.items():
+        try:
+            if not proc.is_running():
+                continue
+                
             # Get process details
-            pid = proc.info['pid']
-            process_name = proc.info['name']
-
-            # Collect CPU usage
-            cpu_usage = proc.cpu_percent(interval=0.1)
+            process_name = proc.name()
+            
+            # Get accurate CPU usage after the interval
+            cpu_usage = proc.cpu_percent(interval=None)
             PROCESS_CPU_USAGE.labels(pid=pid, process_name=process_name).set(cpu_usage)
-
-            # Collect Memory Usage
+            
+            # Rest of your metrics
             memory_info = proc.memory_info()
             PROCESS_MEMORY_USAGE.labels(pid=pid, process_name=process_name).set(memory_info.rss)
-
-            # Collect Open Files
+            
             try:
                 open_files_count = len(proc.open_files())
                 PROCESS_OPEN_FILES.labels(pid=pid, process_name=process_name).set(open_files_count)
             except (psutil.AccessDenied, psutil.NoSuchProcess):
                 pass
-
-            # Collect Thread Count
+                
             thread_count = proc.num_threads()
             PROCESS_THREADS.labels(pid=pid, process_name=process_name).set(thread_count)
-
+            
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             # Handle cases where process might have terminated
             pass
